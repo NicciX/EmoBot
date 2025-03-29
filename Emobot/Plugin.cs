@@ -33,7 +33,7 @@ public sealed class Plugin : IDalamudPlugin
         var emoImagePath = Path.Combine(PluginInterface.AssemblyLocation.Directory?.FullName!, "lips.png");
 
         ConfigWindow = new ConfigWindow(this);
-        MainWindow = new MainWindow(this, goatImagePath);
+        MainWindow = new MainWindow(this, emoImagePath);
 
         WindowSystem.AddWindow(ConfigWindow);
         WindowSystem.AddWindow(MainWindow);
