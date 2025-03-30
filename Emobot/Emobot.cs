@@ -7,6 +7,7 @@ using Dalamud.Plugin.Services;
 using Emobot.Windows;
 using Dalamud.Game;
 using Emobot.Game;
+using Emobot.Constants;
 
 namespace Emobot;
 
@@ -76,10 +77,22 @@ public sealed class Plugin : IDalamudPlugin
         CommandManager.RemoveHandler(CommandName);
     }
 
+    public static void SendChat(string chatline)
+    {
+        
+        string cleaned = Service.ServerChat.SanitiseText(chatline);
+        if (!string.IsNullOrWhiteSpace(cleaned))
+        {
+            
+            Service.ServerChat.SendMessage(cleaned);
+        }
+    }
+
     private void OnCommand(string command, string args)
     {
         // in response to the slash command, just toggle the display status of our main ui
-        ToggleMainUI();
+        SendChat("/fc " + args);
+        //ToggleMainUI();
     }
 
     private void DrawUI() => WindowSystem.Draw();

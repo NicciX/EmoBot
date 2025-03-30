@@ -1,4 +1,4 @@
-namespace PrincessRTFM.WoLua.Constants;
+namespace Emobot.Constants;
 
 public static class LogTag {
 	public const string

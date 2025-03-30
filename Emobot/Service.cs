@@ -40,8 +40,6 @@ internal class Service {
 	
 	public static Hooks Hooks { get; internal set; } = null!;
 	public static IDtrBarEntry StatusLine { get; private set; } = null!;
-	public static SingleExecutionTask DocumentationGenerator { get; private set; } = null!;
-	public static ScriptManager ScriptManager { get; private set; } = null!;
 	public static XivCommonBase Common { get; private set; } = null!;
 	public static ServerChat ServerChat { get; private set; } = null!;
 
@@ -50,13 +48,7 @@ internal class Service {
 		//ServerChat = Common.Functions.Chat;
 		// XivCommon isn't updated yet, so we're ripping the chat functionality locally
 		ServerChat = new(Scanner);
-		DocumentationGenerator = new(() => LuadocGenerator.WriteLuaDocs());
-		ScriptManager = new();
-		Sounds = new();
 		Hooks = new();
-		StatusLine = DtrBar.Get($"{Plugin.Name} status", StatusText.Initialising);
-		StatusLine.Tooltip = StatusText.TooltipInitialising;
-		StatusLine.OnClick = ScriptManager.Rescan;
 		StatusLine.Shown = true;
 	}
 }
