@@ -4,10 +4,8 @@ using Dalamud.Game.Gui.Dtr;
 using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
-
-using PrincessRTFM.WoLua.Constants;
-using PrincessRTFM.WoLua.Game;
-using PrincessRTFM.WoLua.Lua.Docs;
+using Emobot.Game;
+using Emobot.Constants;
 
 using XivCommon;
 
@@ -16,9 +14,9 @@ namespace Emobot;
 internal class Service {
 
 	[PluginService] public static Plugin Plugin { get; private set; } = null!;
-	[PluginService] public static PluginConfiguration Configuration { get; private set; } = null!;
 
-	[PluginService] public static IDalamudPluginInterface Interface { get; private set; } = null!;
+
+    [PluginService] public static IDalamudPluginInterface Interface { get; private set; } = null!;
 	[PluginService] public static IChatGui ChatGui { get; private set; } = null!;
 	[PluginService] public static IClientState ClientState { get; private set; } = null!;
 	[PluginService] public static ICommandManager CommandManager { get; private set; } = null!;
@@ -40,7 +38,7 @@ internal class Service {
 	[PluginService] public static IToastGui Toast { get; private set; } = null!;
 	[PluginService] public static INotificationManager Notifications { get; private set; } = null!;
 
-	public static PlaySound Sounds { get; internal set; } = null!;
+	
 	public static Hooks Hooks { get; internal set; } = null!;
 	public static IDtrBarEntry StatusLine { get; private set; } = null!;
 	public static SingleExecutionTask DocumentationGenerator { get; private set; } = null!;
