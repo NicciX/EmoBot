@@ -5,6 +5,8 @@ using System.IO;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin.Services;
 using Emobot.Windows;
+using Dalamud.Game;
+using Emobot.Game;
 
 namespace Emobot;
 
@@ -16,6 +18,9 @@ public sealed class Plugin : IDalamudPlugin
     [PluginService] internal static IClientState ClientState { get; private set; } = null!;
     [PluginService] internal static IDataManager DataManager { get; private set; } = null!;
     [PluginService] internal static IPluginLog Log { get; private set; } = null!;
+    [PluginService] public static ISigScanner Scanner { get; private set; } = null!;
+    internal static ServerChat ServerChat { get; private set; } = null!;
+
 
     public const string Name = "EmoBot";
     private const string CommandName = "/emo";
@@ -25,6 +30,8 @@ public sealed class Plugin : IDalamudPlugin
     public readonly WindowSystem WindowSystem = new("Emobot");
     private ConfigWindow ConfigWindow { get; init; }
     private MainWindow MainWindow { get; init; }
+
+
 
     public Plugin()
     {
