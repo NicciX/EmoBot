@@ -2,7 +2,7 @@
 > 
 > Emobot plugin for FFXIV.
 >
-> ![image](https://github.com/NicciX/EmoBot/Data/lips.png)
+> ![image](Data/lips.png)
 
 # EmoBot
 
