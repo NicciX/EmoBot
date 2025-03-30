@@ -11,7 +11,7 @@ using PrincessRTFM.WoLua.Lua.Docs;
 
 using XivCommon;
 
-namespace PrincessRTFM.WoLua;
+namespace Emobot;
 
 internal class Service {
 
