@@ -5,7 +5,7 @@ using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Emobot.Game;
-using Emobot.Constants;
+
 using XivCommon;
 
 namespace Emobot;
