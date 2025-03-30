@@ -4,8 +4,13 @@ using Dalamud.Plugin;
 using System.IO;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin.Services;
-using Emobot.Windows;
 using Dalamud.Game;
+using Dalamud.Game.Text;
+
+using FFXIVClientStructs;
+using System.Runtime.InteropServices;
+
+using Emobot.Windows;
 using Emobot.Game;
 using Emobot.Constants;
 
@@ -20,6 +25,7 @@ public sealed class Plugin : IDalamudPlugin
     [PluginService] internal static IDataManager DataManager { get; private set; } = null!;
     [PluginService] internal static IPluginLog Log { get; private set; } = null!;
     [PluginService] public static ISigScanner Scanner { get; private set; } = null!;
+    public required IChatGui ChatGui { get; init; }
     internal static ServerChat ServerChat { get; private set; } = null!;
 
 
@@ -31,6 +37,8 @@ public sealed class Plugin : IDalamudPlugin
     public readonly WindowSystem WindowSystem = new("Emobot");
     private ConfigWindow ConfigWindow { get; init; }
     private MainWindow MainWindow { get; init; }
+
+    public XivChatType GeneralChatType { get; set; } = XivChatType.Debug;
 
 
 
@@ -64,9 +72,17 @@ public sealed class Plugin : IDalamudPlugin
         // Add a simple message to the log with level set to information
         // Use /xllog to open the log window in-game
         // Example Output: 00:57:54.959 | INF | [SamplePlugin] ===A cool log message from Sample Plugin===
-        Log.Information($"{PluginInterface.Manifest.Name} is loaded and ready to jack!");
+        Log.Information($"{PluginInterface.Manifest.Name} is loaded and ready to jack!!");
     }
 
+    public void PrintChat(string msg)
+    {
+        ChatGui.Print(new XivChatEntry()
+        {
+            Message = msg,
+            Type = GeneralChatType
+        });
+    }
     public void Dispose()
     {
         WindowSystem.RemoveAllWindows();
@@ -79,7 +95,8 @@ public sealed class Plugin : IDalamudPlugin
 
     public static void SendChat(string chatline)
     {
-        
+        Log.Information(chatline);
+        Log.Information(Service.ServerChat.SanitiseText(chatline));
         string cleaned = Service.ServerChat.SanitiseText(chatline);
         if (!string.IsNullOrWhiteSpace(cleaned))
         {
@@ -91,7 +108,8 @@ public sealed class Plugin : IDalamudPlugin
     private void OnCommand(string command, string args)
     {
         // in response to the slash command, just toggle the display status of our main ui
-        SendChat("/fc " + args);
+        //SendChat("/fc " + args);
+        PrintChat(args);
         //ToggleMainUI();
     }
 
