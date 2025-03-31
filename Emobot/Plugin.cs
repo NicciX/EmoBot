@@ -39,15 +39,26 @@ public class Plugin : IDalamudPlugin
     private bool disposed = false;
 
 
+    [PluginService] internal static IChatGui Chat { get; private set; } = null!;
+    [PluginService] internal static IGameGui Gui { get; private set; } = null!;
+    [PluginService] internal static IToastGui Toast { get; private set; } = null!;
     [PluginService] internal static IDalamudPluginInterface PluginInterface { get; private set; } = null!;
     [PluginService] internal static ITextureProvider TextureProvider { get; private set; } = null!;
-    [PluginService] internal static ICommandManager CmdManager { get; private set; } = null!;
     [PluginService] internal static IClientState ClientState { get; private set; } = null!;
     [PluginService] internal static IDataManager DataManager { get; private set; } = null!;
-    [PluginService] internal static IPluginLog Log { get; private set; } = null!;
-    [PluginService] public static ISigScanner Scanner { get; private set; } = null!;
-    [PluginService] internal static IChatGui Chat { get; private set; } = null!;
+    //[PluginService] internal static IPluginLog Log { get; private set; } = null!;
 
+    [PluginService] internal static ISigScanner Scanner { get; private set; } = null!;
+    [PluginService] internal static ICommandManager CmdManager { get; private set; } = null!;
+    [PluginService] internal static IClientState Client { get; private set; } = null!;
+    [PluginService] internal static ICondition Conditions { get; private set; } = null!;
+    [PluginService] internal static ITargetManager Targets { get; private set; } = null!;
+    [PluginService] internal static IDataManager Data { get; private set; } = null!;
+    [PluginService] internal static IPartyList Party { get; private set; } = null!;
+    [PluginService] internal static IObjectTable Objects { get; private set; } = null!;
+    [PluginService] internal static IFateTable Fates { get; private set; } = null!;
+    [PluginService] internal static IFramework Framework { get; private set; } = null!;
+    [PluginService] internal static IPluginLog Log { get; private set; } = null!;
     [PluginService] internal static IGameInteropProvider Interop { get; private set; } = null!;
 
     //public static ServerChat ServerChat { get; private set; } = null!;
@@ -92,25 +103,25 @@ public class Plugin : IDalamudPlugin
         };
         CommandManager.AddCommandHandlers();
 
-        this.windowSystem = new(this.GetType().Namespace!);
-        this.helpWindows = CommandManager.Commands.ToDictionary(cmd => cmd.CommandComparable, cmd => new HelpWindow(cmd) as Window);
-        this.helpWindows.Add("<PLUGIN>", new HelpWindow(
-            "Basics",
-            PluginName,
-            "the plugin itself",
-            "Basic information about how commands work",
-            $"{PluginName} uses a custom command parser that accepts single-character boolean flags starting with a hyphen."
-            + "These flags can be bundled into one argument, such that \"-va\" will set both the \"v\" and \"a\" flags, just like \"-av\" will.\n"
-            + "\n"
-            + "All commands accept \"-h\" to display their built-in help.\n"
-            + "\n"
-            + "To list all commands, you can use \"/tinycmds\", optionally with \"-a\" to also list their aliases."
-            + " Be aware that this list may be a little long. It's also not really sorted."
-        ));
-        this.helpWindows.Add("<LIST>", new CommandListWindow(this));
+        //this.windowSystem = new(this.GetType().Namespace!);
+        //this.helpWindows = CommandManager.Commands.ToDictionary(cmd => cmd.CommandComparable, cmd => new HelpWindow(cmd) as Window);
+        //this.helpWindows.Add("<PLUGIN>", new HelpWindow(
+            //"Basics",
+           // PluginName,
+            //"the plugin itself",
+           // "Basic information about how commands work",
+           // $"{PluginName} uses a custom command parser that accepts single-character boolean flags starting with a hyphen."
+          //  + "These flags can be bundled into one argument, such that \"-va\" will set both the \"v\" and \"a\" flags, just like \"-av\" will.\n"
+           // + "\n"
+           // + "All commands accept \"-h\" to display their built-in help.\n"
+           // + "\n"
+           // + "To list all commands, you can use \"/tinycmds\", optionally with \"-a\" to also list their aliases."
+           // + " Be aware that this list may be a little long. It's also not really sorted."
+       // ));
+        //this.helpWindows.Add("<LIST>", new CommandListWindow(this));
 
-        foreach (Window wnd in this.helpWindows.Values)
-            this.windowSystem.AddWindow(wnd);
+       // foreach (Window wnd in this.helpWindows.Values)
+         //   this.windowSystem.AddWindow(wnd);
 
         PluginInterface.UiBuilder.Draw += this.windowSystem.Draw;
 

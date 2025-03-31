@@ -23,18 +23,7 @@ internal class CommandListWindow: HelpWindow {
 			if (!cmd.ShowInListing)
 				continue;
 
-			if (this.plugin.helpWindows.TryGetValue(cmd.CommandComparable, out Window? wnd)) {
-				ImGui.AlignTextToFramePadding();
-				ImGui.PushFont(UiBuilder.IconFont);
-				bool getHelp = ImGui.Button($"{FontAwesomeIcon.Question.ToIconString()}###OpenHelp_{cmd.InternalName}");
-				ImGui.PopFont();
-				if (getHelp) {
-					Plugin.Log.Information($"Opening help window for {cmd.InternalName}");
-					wnd.IsOpen = true;
-				}
-				ImGui.SameLine();
-				ImGui.Text(cmd.Usage);
-			}
+			
 		}
 	}
 
