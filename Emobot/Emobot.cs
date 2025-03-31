@@ -25,9 +25,10 @@ public sealed class Plugin : IDalamudPlugin
     [PluginService] internal static IDataManager DataManager { get; private set; } = null!;
     [PluginService] internal static IPluginLog Log { get; private set; } = null!;
     [PluginService] public static ISigScanner Scanner { get; private set; } = null!;
-    public required IChatGui ChatGui { get; init; }
-    internal static ServerChat ServerChat { get; private set; } = null!;
+    [PluginService] internal static IChatGui ChatGui { get; private set; } = null!;
 
+    //public static ServerChat ServerChat { get; private set; } = null!;
+    internal static ServerChat ServerChat { get; private set; } = null!;
 
     public const string Name = "EmoBot";
     private const string CommandName = "/emo";
@@ -48,6 +49,8 @@ public sealed class Plugin : IDalamudPlugin
 
         // you might normally want to embed resources and load them from the manifest stream
         var emoImagePath = Path.Combine(PluginInterface.AssemblyLocation.Directory?.FullName!, "lips.png");
+
+        ServerChat = new(Scanner);
 
         ConfigWindow = new ConfigWindow(this);
         MainWindow = new MainWindow(this, emoImagePath);
@@ -77,12 +80,10 @@ public sealed class Plugin : IDalamudPlugin
 
     public void PrintChat(string msg)
     {
-        ChatGui.Print(new XivChatEntry()
-        {
-            Message = msg,
-            Type = GeneralChatType
-        });
+        ChatGui.Print(msg);
     }
+
+    
     public void Dispose()
     {
         WindowSystem.RemoveAllWindows();
@@ -93,23 +94,14 @@ public sealed class Plugin : IDalamudPlugin
         CommandManager.RemoveHandler(CommandName);
     }
 
-    public static void SendChat(string chatline)
-    {
-        Log.Information(chatline);
-        Log.Information(Service.ServerChat.SanitiseText(chatline));
-        string cleaned = Service.ServerChat.SanitiseText(chatline);
-        if (!string.IsNullOrWhiteSpace(cleaned))
-        {
-            
-            Service.ServerChat.SendMessage(cleaned);
-        }
-    }
-
     private void OnCommand(string command, string args)
     {
         // in response to the slash command, just toggle the display status of our main ui
+        string msg = ServerChat.SanitiseText(args);
+        ServerChat.SendMessage(msg);
         //SendChat("/fc " + args);
-        PrintChat(args);
+        
+        //PrintChat(args);
         //ToggleMainUI();
     }
 

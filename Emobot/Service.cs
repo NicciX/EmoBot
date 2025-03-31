@@ -41,7 +41,7 @@ internal class Service {
 	public static Hooks Hooks { get; internal set; } = null!;
 	public static IDtrBarEntry StatusLine { get; private set; } = null!;
 	public static XivCommonBase Common { get; private set; } = null!;
-	public static ServerChat ServerChat { get; private set; } = null!;
+    [PluginService] public static ServerChat ServerChat { get; private set; } = null!;
 
 	public Service() {
 		//Common = new(Interface);
