@@ -20,4 +20,8 @@
     <PackageReference Include="MoonSharp" Version="2.0.0" />
     <PackageReference Include="XivCommon" Version="9.0.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\Conditional\" />
+  </ItemGroup>
 </Project>
