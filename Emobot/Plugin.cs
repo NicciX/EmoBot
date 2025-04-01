@@ -123,14 +123,14 @@ public class Plugin : IDalamudPlugin
        // foreach (Window wnd in this.helpWindows.Values)
          //   this.windowSystem.AddWindow(wnd);
 
-        PluginInterface.UiBuilder.Draw += this.windowSystem.Draw;
+        //PluginInterface.UiBuilder.Draw += this.windowSystem.Draw;
 
         // This adds a button to the plugin installer entry of this plugin which allows
         // to toggle the display status of the configuration ui
-        PluginInterface.UiBuilder.OpenConfigUi += ToggleConfigUI;
+        //PluginInterface.UiBuilder.OpenConfigUi += ToggleConfigUI;
 
         // Adds another button that is doing the same but for the main ui of the plugin
-        PluginInterface.UiBuilder.OpenMainUi += ToggleMainUI;
+        //PluginInterface.UiBuilder.OpenMainUi += ToggleMainUI;
 
         // Add a simple message to the log with level set to information
         // Use /xllog to open the log window in-game
@@ -161,8 +161,8 @@ public class Plugin : IDalamudPlugin
         {
             //Common?.Dispose();
             CommandManager.Dispose();
-            PluginInterface.UiBuilder.Draw -= this.windowSystem.Draw;
-            this.windowSystem.RemoveAllWindows();
+            //PluginInterface.UiBuilder.Draw -= this.windowSystem.Draw;
+            //this.windowSystem.RemoveAllWindows();
         }
 
     }

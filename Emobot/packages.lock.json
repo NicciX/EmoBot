@@ -20,6 +20,12 @@
         "resolved": "2.0.0.4",
         "contentHash": "joGkq0Y+K9da2TD/8/felotoTuqaUPjyKFjr2aeod77e28YMEmFrwVH+r91cU9X8hs50LEEp4QTzUnIrMJgcNw=="
       },
+      "MathParser.org-mXparser": {
+        "type": "Direct",
+        "requested": "[6.1.0, )",
+        "resolved": "6.1.0",
+        "contentHash": "Q1TBiJ47mPLsNK2/ArHvsplaRpWR7tP/ICbVKscZ8GsGrnenI4jwuQmMQysg1YWgAxIBJQtRZnbdXsCFl9fyPA=="
+      },
       "MoonSharp": {
         "type": "Direct",
         "requested": "[2.0.0, )",
